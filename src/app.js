@@ -9,7 +9,7 @@ const getADANet = require('./getADANet')
 const app = express()
 const CACHE_TIME = 1000 * 20 // 20s
 
-const { BTC_WALLET, ETH_WALLET, ADA_WALLET, PORT = 8080 } = process.env
+const { BTC_WALLET, ETH_WALLET, ADA_WALLET, PORT } = process.env
 
 let cache, timestamp
 
