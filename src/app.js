@@ -4,11 +4,12 @@ require('dotenv').config()
 const express = require('express')
 const getBTCNet = require('./getBTCNet')
 const getETHNet = require('./getETHNet')
+const getADANet = require('./getADANet')
 
 const app = express()
 const CACHE_TIME = 1000 * 20 // 20s
 
-const { BTC_WALLET, ETH_WALLET } = process.env
+const { BTC_WALLET, ETH_WALLET, ADA_WALLET } = process.env
 
 let cache, timestamp
 
@@ -38,6 +39,14 @@ app.get('/', async function (req, res) {
       })
       .catch((e) => {
         console.error('Error getting ETH net')
+      })
+    await getADANet(ADA_WALLET)
+      .then((ada) => {
+        net.net += ada.net
+        net.ada = ada
+      })
+      .catch((e) => {
+        console.error('Error getting ADA net')
       })
 
     cache = net
